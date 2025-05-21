@@ -9,9 +9,10 @@ app.use(express.json());
 app.use("/writers", writerRouter);
 app.use("/books", bookRouter);
 
-// app.use((req: Request, res: Response) => res.status(404).json({
-//     message: "NotFound"
-// }));
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+    console.error(err);
+    res.status(500).json({ message: err.message });
+});
 
 app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     console.error(err);
